@@ -11,15 +11,38 @@ exports.load = function(req, res, next, quizId) {
     }
   ).catch(function(error) { next(error);});
 };
+//función de búsqueda
 
-// GET /quizes
+// GET /quizes/
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
+   if(req.query.search === undefined){
+     models.Quiz.findAll().then(
+    function (quizes) {
+      res.render('quizes/index', { quizes: quizes});
+    }
+  ).catch (function (error) { next(error);});
+   } 
+  else{//añado código de fitrado de preguntas
+  var searchs=req.query.search.replace(" ", "%");
+    console.log();
+    models.Quiz.findAll(
+    
+    {
+         where:{
+        pregunta:{$like: '%'+searchs+'%'}
+              },
+        //limit:1
+     order:["pregunta"]
+      }
+      
+   
+  ).then(
     function(quizes) {
       res.render('quizes/index', { quizes: quizes});
     }
-  ).catch(function(error) { next(error);})
-};
+  ).catch(function(error) { next(error);});
+}
+  };
 
 // GET /quizes/:id
 exports.show = function(req, res) {
