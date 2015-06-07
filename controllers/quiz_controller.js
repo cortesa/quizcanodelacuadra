@@ -11,7 +11,6 @@ exports.load = function(req, res, next, quizId) {
     }
   ).catch(function(error) { next(error);});
 };
-//función de búsqueda
 
 // GET /quizes/
 exports.index = function(req, res) {
@@ -22,7 +21,7 @@ exports.index = function(req, res) {
     }
   ).catch (function (error) { next(error);});
    } 
-  else{//añado código de fitrado de preguntas
+  else{//añado código de fitrado o búsqueda de preguntas
   var searchs=req.query.search.replace(" ", "%");
     console.log();
     models.Quiz.findAll(
@@ -56,4 +55,23 @@ exports.answer = function(req, res) {
     resultado = 'Correcto';
   }
   res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
+};
+
+// GET /quizes/new
+exports.new = function(req, res) {
+  var quiz = models.Quiz.build(
+    {pregunta: "Pregunta", respuesta: "Respuesta"}
+  );
+
+  res.render('quizes/new', {quiz: quiz});
+};
+
+// POST /quizes/create
+exports.create = function(req, res) {
+  var quiz = models.Quiz.build( req.body.quiz );
+
+// guarda en DB los campos pregunta y respuesta de quiz
+  quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+    res.redirect('/quizes');  
+  })   // res.redirect: Redirección HTTP a lista de preguntas
 };
