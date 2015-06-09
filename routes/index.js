@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 });
 /* GET página de autor. */
 router.get('/autor', function(req, res) {
-  res.render('autor', { title: 'Creditos' });
+  res.render('autor', { title: 'Creditos', errors:[] });
 });
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.load);  // autoload :quizId
@@ -22,4 +22,6 @@ router.get('/quizes/new',                  quizController.new);
 router.post('/quizes/create',              quizController.create);
 router.get('/quizes/:quizId(\\d+)/edit',   quizController.edit);
 router.put('/quizes/:quizId(\\d+)',        quizController.update);
+router.delete('/quizes/:quizId(\\d+)',     quizController.destroy);
+
 module.exports = router;
