@@ -1,3 +1,4 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 *                    { margin: 0; padding: 0; }
 body                 { font: 16px Georgia, serif; }
 
@@ -14,3 +15,55 @@ nav span             { margin: 0px 10px 0px 0px;}
   border-radius:50%;
 }
 #ErrorMsgs           { color: #f61; font-size: smaller}
+
+
+
+/*icono quiz*/
+.main h2{
+    position: relative;
+}
+.main h2:before{
+    font-family: FontAwesome;
+  content: "\f118";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color:lightblue;
+    font-size: 2em;
+    padding-right: 1em;
+    position: absolute;
+    left: .5em;
+  top:-.5em;
+}
+/*iconos temas*/
+.humanidades, .tecnologia, .otro, .ocio, .ciencia{
+    position: relative;
+}
+  
+.humanidades:before , .tecnologia:before, .otro:before , .ocio:before , .ciencia:before  {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: brown;
+    font-size: 1em;
+    padding-right: 1em;
+    position: absolute;
+    left: -1em;
+  top:0px;
+}
+.humanidades:before{
+content: "\f19c";
+}
+.tecnologia:before{
+content: "\f074";
+}
+.otro:before{
+content: "\f08d";
+}
+.ocio:before{
+content: "\f19d";
+}
+.ciencia:before{
+content: "\f0c3";
+}

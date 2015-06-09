@@ -14,6 +14,7 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes/
 exports.index = function(req, res) {
+  // función de búsqueda . Primero determino si es indefinido y muestro todas y si no actúo
   if (req.query.search === undefined) {
     models.Quiz.findAll().then(
       function (quizes) {
@@ -59,7 +60,7 @@ exports.answer = function (req, res) {
 // GET /quizes/new
 exports.new = function(req, res) {
   var quiz = models.Quiz.build(
-    {pregunta: "Pregunta", respuesta: "Respuesta"}
+    {pregunta: "Pregunta", respuesta: "Respuesta", tema: "tema"}
   );
 
   res.render('quizes/new', {quiz: quiz,errors:[]});
@@ -77,7 +78,7 @@ exports.create = function (req, res) {
         } else {
       // guarda en DB los campos pregunta y respuesta de quiz y entonces nos redirige a la pagina de preuntas
           quiz//
-            .save({fields: ["pregunta", "respuesta"]})// guarda en DB los campos pregunta y respuesta
+            .save({fields: ["pregunta", "respuesta", "tema"]})// guarda en DB los campos pregunta y respuesta y tema 
             .then(function () {
               res.redirect('/quizes'); // res.redirect: Redirección HTTP a lista de preguntas 
             });
@@ -96,6 +97,7 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
 
   req.quiz
   .validate()
@@ -105,7 +107,7 @@ exports.update = function(req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz     // save: guarda campos pregunta y respuesta en DB
-        .save( {fields: ["pregunta", "respuesta"]})
+        .save( {fields: ["pregunta", "respuesta", "tema"]})
         .then( function(){ res.redirect('/quizes');});
       }     // Redirección HTTP a lista de preguntas (URL relativo)
     }
