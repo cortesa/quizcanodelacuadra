@@ -7,3 +7,9 @@ h2 span, section h3, label.rem
 body             { font-size: large; }
 input, button    { font-size: large; }
 footer           { font-size: large; }
+#buscadores{
+display:flex;
+  flex-direction: column;
+  align-items: center;
+  
+}

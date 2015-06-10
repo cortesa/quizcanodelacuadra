@@ -14,16 +14,24 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes/
 exports.index = function(req, res) {
-  // función de búsqueda . Primero determino si es indefinido y muestro todas y si no actúo
-  if (req.query.search === undefined) {
-    models.Quiz.findAll().then(
+  if(( req.query.tema !== undefined)) {//filtro por temas si tema está definido
+    var temas = req.query.tema;
+    models.Quiz.findAll(
+      {
+        where: {
+          tema: temas
+        },
+        //limit: 1
+        order: ["tema"]
+      }
+    ).then(
       function (quizes) {
         res.render('quizes/index', { quizes: quizes, errors:[]});
       }
     ).catch(function (error) { next(error); });
-  } else {//añado código de fitrado o búsqueda de preguntas
+  }
+  else if( req.query.search !== undefined) {//si search esta definida filtro por search
     var searchs = req.query.search.replace(/\s/g, "%");
-    console.log();
     models.Quiz.findAll(
       {
         where: {
@@ -38,6 +46,16 @@ exports.index = function(req, res) {
       }
     ).catch(function (error) { next(error); });
   }
+  
+  
+  // si search o tema son indefinidas muestro todas
+ else {
+    models.Quiz.findAll().then(
+      function (quizes) {
+        res.render('quizes/index', { quizes: quizes, errors:[]});
+      }
+    ).catch(function (error) { next(error); });
+  }  
 };
 
 // GET /quizes/:id

@@ -1,13 +1,33 @@
-<form action='/quizes' method='get'>
-<label>Búsqueda de preguntas</label>
-  <input type='text'name='search'placeholder='Busca /Filtra la pregunta'>
-  <input type='submit' value='buscar'>
-  
-</form>
-<!--tabla preguntas-->
+<div id='buscadores'> 
+  <div id='temas'>
+    <p> Temas: <i class="fa fa-arrow-down"></i> | <a href='/quizes'>Todas</a></p>
+    <ul>
+      <li>
+      <a href='quizes?tema=humanidades'class='humanidades'>Humanidades</a>
+        </li><li>
+          <a href='quizes?tema=tecnologia'class='tecnologia'>Tecnología</a>
+        </li><li>
+          <a href='quizes?tema=otro'class='otro'>Otros</a>
+        </li><li>
+          <a href='quizes?tema=ocio'class='ocio'>Ocio</a>
+        </li><li>
+          <a href='quizes?tema=ciencia'class='ciencia'>Ciencia</a>
+      </li>
+    </ul>
+  </div>
+  <form id='buscador' action='/quizes' method='get'>
+<label>Busca <i class="fa fa-search"></i></label>
+    <input type='text'name='search'placeholder='Busca'>
+    <input type='submit' value='buscar'>
 
-<table>
-  <% var i; for (i=0; i < quizes.length; i++) { %>        
+  </form>
+
+</div>
+<!--tabla preguntas-->
+<div class='preguntas'>
+<table class=''>
+  
+  <% var i; for (i=0; i < quizes.length; i++) { %> 
      <tr>
        <td class='<%= quizes[i].tema %>'>
 <!--       <%= quizes[i].tema %>-->
@@ -16,14 +36,15 @@
          <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a> 
        </td>
        <td>
-         <a href="quizes/<%= quizes[i].id %>/edit"><button>Modificar</button></a>
+         <a href="quizes/<%= quizes[i].id %>/edit"><button>Edit <i class="fa fa-pencil-square-o"></i></button></a>
        </td>
        <td>
          <form method='post'action="quizes/<%= quizes[i].id %>?_method=delete">
-            <button type='submit' onClick='return confirm("Borrar:<%= quizes[i].pregunta %>");'>Borrar</button>
+            <button type='submit' onClick='return confirm("Borrar:<%= quizes[i].pregunta %>");'><i class="fa fa-trash"></i></button>
          </form>
        </td>
   </tr> 
   <% } %>
   </table>
 <p><a href="/quizes/new"><button type="button">Crear pregunta</button></a></p>
+  </div>
