@@ -35,6 +35,7 @@
        <td>
          <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a> 
        </td>
+       <% if(session.user){ %>
        <td>
          <a href="quizes/<%= quizes[i].id %>/edit"><button>Edit <i class="fa fa-pencil-square-o"></i></button></a>
        </td>
@@ -43,8 +44,11 @@
             <button type='submit' onClick='return confirm("Borrar:<%= quizes[i].pregunta %>");'><i class="fa fa-trash"></i></button>
          </form>
        </td>
+        <%}%>
   </tr> 
   <% } %>
   </table>
+  <% if(session.user){ %>
 <p><a href="/quizes/new"><button type="button">Crear pregunta</button></a></p>
+  <%}%>
   </div>
