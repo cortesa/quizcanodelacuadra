@@ -25,6 +25,8 @@ nav span:before             {
 }
 #ErrorMsgs           { color: #f61; font-size: smaller}
 
+.right 				 {float: right;}
+
 .preguntas{
 border:3px groove #ddd;
   padding:1em;
