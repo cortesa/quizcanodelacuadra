@@ -36,6 +36,17 @@ app.use(function(req, res, next) {
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
   next();
+  // hacer logout 
+  
+});
+// destruir sesión en 2 minutos o 120000 milisegundos
+app.use(function (req, res, next) {
+ 
+  var tiempo = 120000;
+  req.session.cookie.expires = new Date(Date.now() + tiempo);
+  //req.session.cookie.maxAge = tiempo;
+ 
+  next();
 });
 
 app.use('/', routes);
