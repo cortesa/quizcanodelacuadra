@@ -7,6 +7,7 @@ var bodyParser =    require('body-parser');
 var partials =      require('express-partials');
 var methodOverride= require('method-override');
 var session=        require('express-session');
+var FileStore =     require('session-file-store')(session);
 var routes =        require('./routes/index');
 
 var app = express();
@@ -21,7 +22,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({
+    store: new FileStore,
+    secret: 'keyboard cat'
+}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 //helpers dinámicos
